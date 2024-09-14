@@ -1,8 +1,8 @@
-import * as React from 'react';
+"use client"
+
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -10,10 +10,9 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useEffect, useState, Fragment } from 'react';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,8 +39,12 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-  const [expanded, setExpanded] = React.useState(false);
-  const { year } = props;
+  const [expanded, setExpanded] = useState(false);
+  const { year, expenditure } = props;
+
+  useEffect(() => {
+    console.log(expenditure)
+  }, [expenditure])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -60,7 +63,7 @@ export default function RecipeReviewCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Use Cash Completely"
+        title="Cash"
         subheader={year}
       />
       <CardContent>
@@ -80,18 +83,15 @@ export default function RecipeReviewCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography sx={{ marginBottom: 2 }}>January:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>February:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>March:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>April:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>May:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>June:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>July:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>August:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>September:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>October:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>November:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>December:</Typography>
+          <Typography sx={{ marginBottom: 2 }}>Monthly:</Typography>
+
+          {expenditure.map((element) => (
+            <Fragment key={element.name}>
+                <Typography sx={{ marginBottom: 2 }}>{element.name}</Typography>
+                <Typography sx={{ marginBottom: 2 }}>{element.bill}:</Typography>
+                <Typography sx={{ marginBottom: 2 }}>{element.timeframe}</Typography>
+            </Fragment>
+          ))}
         </CardContent>
       </Collapse>
     </Card>

@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import styles from "../page.module.css";
-import Input, { formatValue } from "./input";
 import { Divider, Text } from "@mantine/core";
-import RecipeReviewCard from "./components/demo";
+import { Slider } from "@mui/material";
+import { formatValue } from "./input";
 import MassiveForm from "./massiveform";
 import SectionTwoInput from "./sectiontwoinput";
-import { Slider } from "@mui/material";
+import LifeSavings from "./lifesavings";
 
 const Main = () => {
     const [monthly, setMonthly] = useState(0)
@@ -15,6 +15,7 @@ const Main = () => {
     const [cpf, setCPF] = useState(0)
     const [shortFallPayback, setShortFallPayback] = useState(0)
     const [initialValue, setInitialValue] = useState("")
+    const [expenditure, setExpenditure] = useState([])
     const [inputValues, setInputValues] = useState({
         price: 0,
         interest: 0,
@@ -36,7 +37,21 @@ const Main = () => {
         // Loan amount
         const monthlyLoan = inputValues.loan * result
 
-        setMonthly(ParseFloat(monthlyLoan.toFixed(2)))
+        setMonthly(parseFloat(monthlyLoan.toFixed(2)))
+    }
+
+    const computeExpenditure = () => {
+        setExpenditure([{
+            name: "Bank loan for condo",
+            bill: monthly,
+            timeframe: inputValues.years
+        }, {
+            name: "Shortfall loan",
+            bill: (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12),
+            timeframe: shortFallPayback
+        }])
+
+        console.log("computing them expenditure")
     }
 
     useEffect(() => {
@@ -44,7 +59,6 @@ const Main = () => {
     }, [inputValues])
 
     useEffect(() => {
-        console.log(`The shortfall payback is: ${shortFallPayback}`)
         const payback = (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)
         console.log(`Monthly: ${monthly}, payback: ${payback}`)
         console.log(`Monthly: ${typeof(monthly)}, payback: ${typeof(payback)}`)
@@ -53,7 +67,7 @@ const Main = () => {
 
 
     const onSliderChange = (e) => setShortFallPayback(parseFloat(e.target.value.toFixed(2)))
-    const onClick = () => compute()
+    const onClick = () => computeExpenditure()
     const calculateInitialValue = () => setInitialValue((0.75 * inputValues.price).toString())
 
     const onSubmit = (evt) => {
@@ -100,9 +114,9 @@ const Main = () => {
                         onChange={onSliderChange}
                     />
                     <Text>
-                        The initial monthly payment is: 
+                        The monthly payment is: 
                         ${monthly} + ${(inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)}
-                        = ${parseFloat(monthly) + (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)}
+                        = ${monthly + (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)}
                     </Text>
                     <div className={styles.ctas}>
                         <a
@@ -115,37 +129,7 @@ const Main = () => {
 
                 </main>
             </div>
-            <RecipeReviewCard year="2024" />
-            <RecipeReviewCard year="2025" />
-            <RecipeReviewCard year="2026" />
-            <RecipeReviewCard year="2027" />
-            <RecipeReviewCard year="2028" />
-            <RecipeReviewCard year="2029" />
-            <RecipeReviewCard year="2030" />
-            <RecipeReviewCard year="2031" />
-            <RecipeReviewCard year="2032" />
-            <RecipeReviewCard year="2033" />
-            <RecipeReviewCard year="2034" />
-            <RecipeReviewCard year="2035" />
-            <RecipeReviewCard year="2036" />
-            <RecipeReviewCard year="2037" />
-            <RecipeReviewCard year="2038" />
-            <RecipeReviewCard year="2039" />
-            <RecipeReviewCard year="2040" />
-            <RecipeReviewCard year="2041" />
-            <RecipeReviewCard year="2042" />
-            <RecipeReviewCard year="2043" />
-            <RecipeReviewCard year="2044" />
-            <RecipeReviewCard year="2045" />
-            <RecipeReviewCard year="2046" />
-            <RecipeReviewCard year="2047" />
-            <RecipeReviewCard year="2048" />
-            <RecipeReviewCard year="2049" />
-            <RecipeReviewCard year="2050" />
-            <RecipeReviewCard year="2051" />
-            <RecipeReviewCard year="2052" />
-            <RecipeReviewCard year="2053" />
-            <RecipeReviewCard year="2054" />
+            <LifeSavings expenditure={expenditure} />
         </>
     )
 }
