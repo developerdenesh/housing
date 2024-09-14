@@ -4,22 +4,17 @@ import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import Input, { formatValue } from "./input";
 import { Divider, Text } from "@mantine/core";
+import RecipeReviewCard from "./components/demo";
+import MassiveForm from "./massiveform";
 
 const Main = () => {
+    const [monthly, setMonthly] = useState(0)
+    const [initialValue, setInitialValue] = useState(0)
     const [inputValues, setInputValues] = useState({
         price: 0,
         interest: 0,
         years: 0
     })
-
-    const [downpayment, setDownpayment] = useState(0)
-    const [monthly, setMonthly] = useState(0)
-    const [initalValue, setInitalValue] = useState(0)
-
-    const calculateInitialValue = () => {
-        console.error("hi")
-        setInitalValue(0.75 * inputValues.price)
-    }
 
     const compute = () => {
         // Interest rate is charged per month
@@ -39,13 +34,12 @@ const Main = () => {
         setMonthly(monthlyLoan.toFixed(2))
     }
 
-    const onClick = () => {
-        compute()
-    }
-
     useEffect(() => {
         compute()
     }, [inputValues])
+
+    const onClick = ()  => compute()
+    const calculateInitialValue = () => setInitialValue(0.75 * inputValues.price)
 
     const onSubmit = (evt) => {
         setInputValues({
@@ -61,49 +55,11 @@ const Main = () => {
             <div className={styles.page}>
                 <main className={styles.main} style={{ width: "50vw" }}>
                     Please type in all information
-                    <form style={{ width: "50" }}>
-                        <label htmlFor="price" style={{ float: "left" }}>Price:&nbsp;</label>
-                        <Input
-                            id="price"
-                            type="text"
-                            name="price"
-                            placeholder="Price of the unit ($)"
-                            onSubmit={onSubmit}
-                        />
-                        <br />
-                        <div>
-                            <label htmlFor="loan" style={{ float: "left" }}>Loan:&nbsp;</label>
-                            <Input
-                                id="loan"
-                                type="text"
-                                name="loan"
-                                initialValue={initalValue}
-                                placeholder="Loan available"
-                                onSubmit={onSubmit}
-                            />
-                            <button type="button" onClick={calculateInitialValue}>Use LTV</button>
-                        </div>
-                        <br />
-                        <label htmlFor="interest" style={{ float: "left" }}>Interest:&nbsp;</label>
-                        <Input
-                            id="interest"
-                            type="text"
-                            name="interest"
-                            placeholder="Interest (%)"
-                            onSubmit={onSubmit}
-                        />
-                        <br />
-                        <label htmlFor="years" style={{ float: "left" }}>Years:&nbsp;</label>
-                        <Input
-                            id="years"
-                            type="text"
-                            name="years"
-                            placeholder="Years"
-                            onSubmit={onSubmit}
-                        />
-                        <br />
-                    </form>
-
+                    <MassiveForm 
+                        calculateInitialValue={calculateInitialValue}
+                        initialValue={initialValue}
+                        onSubmit={onSubmit}
+                    />
                     <div className={styles.ctas}>
                         <a
                             className={styles.primary}
@@ -114,13 +70,47 @@ const Main = () => {
                     </div>
                     <Divider my="lg" style={{ border: "1px solid black" }}  variant="dashed"/>
                     <Text>
+                        The montly payment is: ${monthly}
+                    </Text>
+                    <Text>
                         The downpayment is: ${formatValue((inputValues.price - inputValues.loan).toString())}
                     </Text>
                     <Text>
-                        The montly payment is: ${monthly}
+                        The downpayment is: ${formatValue((inputValues.price - inputValues.loan).toString())}
                     </Text>
                 </main>
             </div>
+            <RecipeReviewCard year="2024"/>
+            <RecipeReviewCard year="2025"/>
+            <RecipeReviewCard year="2026"/>
+            <RecipeReviewCard year="2027"/>
+            <RecipeReviewCard year="2028"/>
+            <RecipeReviewCard year="2029"/>
+            <RecipeReviewCard year="2030"/>
+            <RecipeReviewCard year="2031"/>
+            <RecipeReviewCard year="2032"/>
+            <RecipeReviewCard year="2033"/>
+            <RecipeReviewCard year="2034"/>
+            <RecipeReviewCard year="2035"/>
+            <RecipeReviewCard year="2036"/>
+            <RecipeReviewCard year="2037"/>
+            <RecipeReviewCard year="2038"/>
+            <RecipeReviewCard year="2039"/>
+            <RecipeReviewCard year="2040"/>
+            <RecipeReviewCard year="2041"/>
+            <RecipeReviewCard year="2042"/>
+            <RecipeReviewCard year="2043"/>
+            <RecipeReviewCard year="2044"/>
+            <RecipeReviewCard year="2045"/>
+            <RecipeReviewCard year="2046"/>
+            <RecipeReviewCard year="2047"/>
+            <RecipeReviewCard year="2048"/>
+            <RecipeReviewCard year="2049"/>
+            <RecipeReviewCard year="2050"/>
+            <RecipeReviewCard year="2051"/>
+            <RecipeReviewCard year="2052"/>
+            <RecipeReviewCard year="2053"/>
+            <RecipeReviewCard year="2054"/>
         </>
     )
 }

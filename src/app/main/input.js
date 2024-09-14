@@ -30,7 +30,6 @@ const Input = (props) => {
         if (name !== "loan" || initialValue === undefined)
             return
 
-        console.error(`Setting intiial value of: ${initialValue}`)
         setValue(initialValue.toString());
     }, [initialValue])
 
