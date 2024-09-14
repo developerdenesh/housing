@@ -145,15 +145,24 @@ const Main = () => {
                     <Divider my="lg" style={{ border: "1px solid black" }} variant="dashed" />
                     <Card sx={{ maxWidth: 600 }}>
                         <CardContent>
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                            <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                            >
                                 name
                             </Typography>
                             <input onChange={onChangeName} />
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                            <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                            >
                                 timeframe
                             </Typography>
                             <input onChange={onChangeTimeframe} />
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                            <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                            >
                                 bill
                             </Typography>
                             <input onChange={onChangeBill} />
@@ -162,8 +171,6 @@ const Main = () => {
                             </Fab>
                         </CardContent>
                     </Card>
-
-
                 </main>
             </div>
             <LifeSavings expenditure={expenditure} />

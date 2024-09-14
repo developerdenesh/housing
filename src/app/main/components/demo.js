@@ -47,7 +47,7 @@ export default function RecipeReviewCard(props) {
         { Name: "Tesla", Bill: "Model Y", Timeframe: 64950, electric: true },
         { Name: "Ford", Bill: "F-Series", Timeframe: 33850, electric: false },
         { Name: "Toyota", Bill: "Corolla", Timeframe: 29600, electric: false },
-      ]);
+    ]);
     const colData = [
         {
             field: "Name"
@@ -59,6 +59,7 @@ export default function RecipeReviewCard(props) {
             field: "Timeframe"
         },
     ]
+
     const { year, expenditure } = props;
 
     useEffect(() => {
@@ -116,7 +117,7 @@ export default function RecipeReviewCard(props) {
                     <Typography sx={{ marginBottom: 2 }}>Monthly:</Typography>
                     <div
                         className="ag-theme-quartz" // applying the Data Grid theme
-                        style={{ height: 500 }} // the Data Grid will fill the size of the parent container
+                        style={{ height: 300 }} // the Data Grid will fill the size of the parent container
                     >
                         {expenditure.map((element) => (
                             <Fragment key={element.name}>
@@ -124,9 +125,7 @@ export default function RecipeReviewCard(props) {
                                     rowData={rowData}
                                     columnDefs={colData}
                                 />
-                                <Typography sx={{ marginBottom: 2 }}>{element.name}</Typography>
-                                <Typography sx={{ marginBottom: 2 }}>{element.bill}:</Typography>
-                                <Typography sx={{ marginBottom: 2 }}>{element.timeframe}</Typography>
+                                <Typography sx={{ marginBottom: 2 }}>{expenditure.reduce((accumulator, element) => accumulator + element.bill, 0)}</Typography>
                             </Fragment>
                         ))}
                     </div>
