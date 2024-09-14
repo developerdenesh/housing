@@ -33,6 +33,7 @@ export default function Main() {
     const onSubmit = (evt) => {
         setInputValues({
             price: (evt.name === "price") ? (evt.value) : inputValues.price,
+            price: (evt.name === "loan") ? (evt.value) : inputValues.loan,
             interest: (evt.name === "interest") ? (evt.value) : inputValues.interest,
             years: (evt.name === "years") ? (evt.value) : inputValues.years,
         })
@@ -47,6 +48,12 @@ export default function Main() {
                         type="text"
                         name="price"
                         placeholder="Price of the unit ($)"
+                        onSubmit={onSubmit}
+                    />
+                    <Input
+                        type="text"
+                        name="loan"
+                        placeholder="Loan available"
                         onSubmit={onSubmit}
                     />
                     <Input

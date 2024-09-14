@@ -4,7 +4,6 @@ import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import { useState } from 'react';
-import Basic from './components/basic';
 
 export default function Demo() {
   // Row Data: The data to be displayed.
@@ -53,7 +52,6 @@ export default function Demo() {
         <button type="submit">Search</button>
       </form>
 
-      <Basic />
     </>
 
   );
