@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import { Divider, Text } from "@mantine/core";
-import { Slider } from "@mui/material";
+import { Card, CardContent, Fab, Slider, Typography } from "@mui/material";
 import { formatValue } from "./input";
 import MassiveForm from "./massiveform";
 import SectionTwoInput from "./sectiontwoinput";
 import LifeSavings from "./lifesavings";
+import { Add } from "@mui/icons-material";
 
 const Main = () => {
     const [monthly, setMonthly] = useState(0)
@@ -16,6 +17,9 @@ const Main = () => {
     const [shortFallPayback, setShortFallPayback] = useState(0)
     const [initialValue, setInitialValue] = useState("")
     const [expenditure, setExpenditure] = useState([])
+    const [name, setName] = useState("")
+    const [bill, setBill] = useState("")
+    const [timeframe, setTimeframe] = useState("")
     const [inputValues, setInputValues] = useState({
         price: 0,
         interest: 0,
@@ -40,6 +44,14 @@ const Main = () => {
         setMonthly(parseFloat(monthlyLoan.toFixed(2)))
     }
 
+    const addExpenditure = () => {
+        setExpenditure([...expenditure, {
+            name: name,
+            bill: parseFloat(bill),
+            timeframe, timeframe
+        }])
+    }
+
     const computeExpenditure = () => {
         setExpenditure([{
             name: "Bank loan for condo",
@@ -47,21 +59,25 @@ const Main = () => {
             timeframe: inputValues.years
         }, {
             name: "Shortfall loan",
-            bill: (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12),
+            bill: (inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12),
             timeframe: shortFallPayback
         }])
 
         console.log("computing them expenditure")
     }
 
+    const onChangeName = (e) => setName(e.target.value)
+    const onChangeTimeframe = (e) => setTimeframe(e.target.value)
+    const onChangeBill = (e) => setBill(e.target.value)
+
     useEffect(() => {
         compute()
     }, [inputValues])
 
     useEffect(() => {
-        const payback = (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)
+        const payback = (inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12)
         console.log(`Monthly: ${monthly}, payback: ${payback}`)
-        console.log(`Monthly: ${typeof(monthly)}, payback: ${typeof(payback)}`)
+        console.log(`Monthly: ${typeof (monthly)}, payback: ${typeof (payback)}`)
         console.log(monthly + payback)
     }, [shortFallPayback])
 
@@ -114,9 +130,9 @@ const Main = () => {
                         onChange={onSliderChange}
                     />
                     <Text>
-                        The monthly payment is: 
-                        ${monthly} + ${(inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)}
-                        = ${monthly + (inputValues.price - inputValues.loan - cash - cpf)/(shortFallPayback * 12)}
+                        The monthly payment is:
+                        ${monthly} + ${(inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12)}
+                        = ${monthly + (inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12)}
                     </Text>
                     <div className={styles.ctas}>
                         <a
@@ -126,6 +142,27 @@ const Main = () => {
                             Compute
                         </a>
                     </div>
+                    <Divider my="lg" style={{ border: "1px solid black" }} variant="dashed" />
+                    <Card sx={{ maxWidth: 600 }}>
+                        <CardContent>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                name
+                            </Typography>
+                            <input onChange={onChangeName} />
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                timeframe
+                            </Typography>
+                            <input onChange={onChangeTimeframe} />
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                bill
+                            </Typography>
+                            <input onChange={onChangeBill} />
+                            <Fab color="primary" aria-label="add" onClick={addExpenditure}>
+                                <Add />
+                            </Fab>
+                        </CardContent>
+                    </Card>
+
 
                 </main>
             </div>
