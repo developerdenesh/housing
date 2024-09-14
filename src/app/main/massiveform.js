@@ -1,5 +1,4 @@
 import Input from "./input"
-import { useState, useEffect } from "react";
 
 const MassiveForm = (props) => {
     const { calculateInitialValue, initialValue, onSubmit } = props;
