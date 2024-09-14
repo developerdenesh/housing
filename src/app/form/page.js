@@ -4,6 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import { useState } from 'react';
+import Basic from './components/basic';
 
 export default function Demo() {
   // Row Data: The data to be displayed.
@@ -19,29 +20,41 @@ export default function Demo() {
       field: "make",
       cellRenderer(props) {
         console.log(props)
-        return <button onClick={() => window.alert('clicked') }>{props.data.make}</button>;
+        return <button onClick={() => window.alert('clicked')}>{props.data.make}</button>;
       }
     },
-    { 
-      field: "model" 
+    {
+      field: "model"
     },
-    { 
-      field: "price" 
+    {
+      field: "price"
     },
-    { 
-      field: "electric" 
+    {
+      field: "electric"
     },
   ]);
 
   return (
-    <div
-      className="ag-theme-quartz" // applying the Data Grid theme
-      style={{ height: 500 }} // the Data Grid will fill the size of the parent container
-    >
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={colDefs}
-      />
-    </div>
+    <>
+      <div
+        className="ag-theme-quartz" // applying the Data Grid theme
+        style={{ height: 500 }} // the Data Grid will fill the size of the parent container
+      >
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={colDefs}
+        />
+      </div>
+      <form>
+        <input name="Price" />
+        <br />
+        <input name="Interest" />
+        <input name="Loan Tenure" />
+        <button type="submit">Search</button>
+      </form>
+
+      <Basic />
+    </>
+
   );
 }
