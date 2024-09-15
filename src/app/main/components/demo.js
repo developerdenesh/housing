@@ -50,13 +50,16 @@ export default function RecipeReviewCard(props) {
     ]);
     const colData = [
         {
-            field: "Name"
+            field: "Name",
+            flex: 1
         },
         {
-            field: "Bill"
+            field: "Bill",
+            flex: 1
         },
         {
-            field: "Timeframe"
+            field: "Timeframe",
+            flex: 1
         },
     ]
 
