@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export const formatValue = (value) => {
     // Reverse the string
@@ -42,6 +43,11 @@ const Input = (props) => {
         );
     }
 
+    const onCancel = () => {
+        setValue("")
+        setInputValue("")
+    }
+
     const addPercentage = (value) => (value.length > 0) ? ("$" + value) : (value)
 
     useEffect(() => {
@@ -64,16 +70,19 @@ const Input = (props) => {
     }, [value])
 
     return (
-        <input
-            style={{ "display": "block", "textAlign": "center" }}
-            size="50"
-            height="200"
-            type={type}
-            name={name}
-            placeholder={placeholder}
-            onChange={onChange}
-            value={inputValue}
-        />
+        <div style={{ display: "flex", alignItems: "center" }}>
+            <input
+                style={{ display: "block", textAlign: "center", height: "30px" }}
+                size="50"
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                onChange={onChange}
+                value={inputValue}
+            />
+            <CancelIcon style={{ cursor: "pointer" }} onClick={onCancel}/>
+        </div>
+
     )
 }
 
