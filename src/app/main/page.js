@@ -166,6 +166,13 @@ const Main = () => {
                                 bill
                             </Typography>
                             <input onChange={onChangeBill} />
+                            <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                            >
+                                Year bill starts
+                            </Typography>
+                            <input />
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Type</InputLabel>
                                 <Select
