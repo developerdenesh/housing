@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import { Divider, Text } from "@mantine/core";
-import { Card, CardContent, Fab, Slider, Typography } from "@mui/material";
+import { Card, CardContent, Fab, FormControl, InputLabel, MenuItem, Select, Slider, Typography } from "@mui/material";
 import { formatValue } from "./input";
 import MassiveForm from "./massiveform";
 import SectionTwoInput from "./sectiontwoinput";
@@ -19,6 +19,7 @@ const Main = () => {
     const [expenditure, setExpenditure] = useState([])
     const [name, setName] = useState("")
     const [bill, setBill] = useState("")
+    const [age, setAge] = useState('');
     const [timeframe, setTimeframe] = useState("")
     const [inputValues, setInputValues] = useState({
         price: 0,
@@ -69,6 +70,8 @@ const Main = () => {
     const onChangeName = (e) => setName(e.target.value)
     const onChangeTimeframe = (e) => setTimeframe(e.target.value)
     const onChangeBill = (e) => setBill(e.target.value)
+    const handleChange = (event) => setAge(event.target.value)
+
 
     useEffect(() => {
         compute()
@@ -76,9 +79,6 @@ const Main = () => {
 
     useEffect(() => {
         const payback = (inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12)
-        console.log(`Monthly: ${monthly}, payback: ${payback}`)
-        console.log(`Monthly: ${typeof (monthly)}, payback: ${typeof (payback)}`)
-        console.log(monthly + payback)
     }, [shortFallPayback])
 
 
@@ -166,6 +166,19 @@ const Main = () => {
                                 bill
                             </Typography>
                             <input onChange={onChangeBill} />
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    label="Type"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>Single Expense</MenuItem>
+                                    <MenuItem value={20}>Monthly Expense</MenuItem>
+                                </Select>
+                            </FormControl>
                             <Fab color="primary" aria-label="add" onClick={addExpenditure}>
                                 <Add />
                             </Fab>
