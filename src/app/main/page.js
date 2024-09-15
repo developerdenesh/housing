@@ -120,7 +120,7 @@ const Main = () => {
                     <Slider
                         aria-label="Temperature"
                         defaultValue={30}
-                        valueLabelFormat="How many years would you like to pay back the short fall?"
+                        valueLabelFormat={`Years to payback: ${shortFallPayback}`}
                         valueLabelDisplay="auto"
                         shiftStep={1}
                         step={1}

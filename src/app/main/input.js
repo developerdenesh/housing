@@ -21,6 +21,8 @@ export const formatValue = (value) => {
     return chars.reverse().join("")
 }
 
+export const addPercentage = (value) => (value.length > 0) ? ("$" + value) : (value)
+
 const Input = (props) => {
     const { type, name, placeholder, onSubmit, initialValue } = props;
 
@@ -47,8 +49,6 @@ const Input = (props) => {
         setValue("")
         setInputValue("")
     }
-
-    const addPercentage = (value) => (value.length > 0) ? ("$" + value) : (value)
 
     useEffect(() => {
         // Submit clean values only
@@ -80,7 +80,7 @@ const Input = (props) => {
                 onChange={onChange}
                 value={inputValue}
             />
-            <CancelIcon style={{ cursor: "pointer" }} onClick={onCancel}/>
+            <CancelIcon style={{ cursor: "pointer" }} onClick={onCancel} />
         </div>
 
     )

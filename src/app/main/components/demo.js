@@ -42,7 +42,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(true);
     const [rowData, setRowData] = useState([
         { Name: "Tesla", Bill: "Model Y", Timeframe: 64950, electric: true },
         { Name: "Ford", Bill: "F-Series", Timeframe: 33850, electric: false },
@@ -82,7 +82,7 @@ export default function RecipeReviewCard(props) {
     };
 
     return (
-        <Card sx={{ maxWidth: 600 }}>
+        <Card sx={{ maxWidth: "100vw" }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -99,7 +99,7 @@ export default function RecipeReviewCard(props) {
             />
             <CardContent>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    If we were to completely use our CPF the breakdown would look as follows:
+                    Monthly:
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -114,7 +114,6 @@ export default function RecipeReviewCard(props) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography sx={{ marginBottom: 2 }}>Monthly:</Typography>
                     <div
                         className="ag-theme-quartz" // applying the Data Grid theme
                         style={{ height: 300 }} // the Data Grid will fill the size of the parent container
@@ -125,7 +124,7 @@ export default function RecipeReviewCard(props) {
                                     rowData={rowData}
                                     columnDefs={colData}
                                 />
-                                <Typography sx={{ marginBottom: 2 }}>{expenditure.reduce((accumulator, element) => accumulator + element.bill, 0)}</Typography>
+                                <Typography sx={{ marginBottom: 2 }}>Total: {expenditure.reduce((accumulator, element) => accumulator + element.bill, 0).toFixed(2)}</Typography>
                             </Fragment>
                         ))}
                     </div>
