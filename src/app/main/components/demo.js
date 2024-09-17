@@ -66,15 +66,23 @@ export default function RecipeReviewCard(props) {
     const { year, expenditure } = props;
 
     useEffect(() => {
-        console.log(expenditure)
-
         const data = []
         expenditure.map((element) => {
+            if (element.type === "single" && parseInt(element.year) === year) {
+                data.push({
+                    Name: element.name,
+                    Timeframe: 1,
+                    Bill: element.bill
+                })
+                return element;
+            }
+
             data.push({
                 Name: element.name,
                 Timeframe: element.timeframe,
                 Bill: element.bill
             })
+            return element
         })
 
         setRowData(data)

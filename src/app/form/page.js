@@ -18,7 +18,6 @@ export default function Demo() {
     {
       field: "make",
       cellRenderer(props) {
-        console.log(props)
         return <button onClick={() => window.alert('clicked')}>{props.data.make}</button>;
       }
     },

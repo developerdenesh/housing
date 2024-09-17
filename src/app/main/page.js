@@ -19,8 +19,11 @@ const Main = () => {
     const [expenditure, setExpenditure] = useState([])
     const [name, setName] = useState("")
     const [bill, setBill] = useState("")
-    const [age, setAge] = useState('');
+    const [year, setYear] = useState("")
+    const [type, setType] = useState("")
+    const [age, setAge] = useState('')
     const [timeframe, setTimeframe] = useState("")
+    const [timeframeVisible, setTimeframeVisible] = useState(false)
     const [inputValues, setInputValues] = useState({
         price: 0,
         interest: 0,
@@ -45,13 +48,14 @@ const Main = () => {
         setMonthly(parseFloat(monthlyLoan.toFixed(2)))
     }
 
-    const addExpenditure = () => {
-        setExpenditure([...expenditure, {
-            name: name,
-            bill: parseFloat(bill),
-            timeframe, timeframe
-        }])
-    }
+    const addExpenditure = () => setExpenditure([...expenditure, {
+        name: name,
+        bill: parseFloat(bill),
+        timeframe, timeframe,
+        type: type,
+        year: year,
+    }])
+
 
     const computeExpenditure = () => {
         setExpenditure([{
@@ -63,15 +67,18 @@ const Main = () => {
             bill: (inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12),
             timeframe: shortFallPayback
         }])
-
-        console.log("computing them expenditure")
     }
 
     const onChangeName = (e) => setName(e.target.value)
     const onChangeTimeframe = (e) => setTimeframe(e.target.value)
     const onChangeBill = (e) => setBill(e.target.value)
+    const onChangeYear = (e) => setYear(e.target.value)
     const handleChange = (event) => setAge(event.target.value)
 
+    useEffect(() => {
+        setTimeframeVisible((age === 20) ? true : false)
+        setType((age === 20) ? true : false)
+    }, [age])
 
     useEffect(() => {
         compute()
@@ -152,27 +159,6 @@ const Main = () => {
                                 name
                             </Typography>
                             <input onChange={onChangeName} />
-                            <Typography
-                                variant="body2"
-                                sx={{ color: 'text.secondary' }}
-                            >
-                                timeframe
-                            </Typography>
-                            <input onChange={onChangeTimeframe} />
-                            <Typography
-                                variant="body2"
-                                sx={{ color: 'text.secondary' }}
-                            >
-                                bill
-                            </Typography>
-                            <input onChange={onChangeBill} />
-                            <Typography
-                                variant="body2"
-                                sx={{ color: 'text.secondary' }}
-                            >
-                                Year bill starts
-                            </Typography>
-                            <input />
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Type</InputLabel>
                                 <Select
@@ -186,6 +172,31 @@ const Main = () => {
                                     <MenuItem value={20}>Monthly Expense</MenuItem>
                                 </Select>
                             </FormControl>
+                            {timeframeVisible &&
+                                <>
+                                    <Typography
+                                        variant="body2"
+                                        sx={{ color: 'text.secondary' }}
+                                    >
+                                        timeframe
+                                    </Typography>
+                                    <input onChange={onChangeTimeframe} />
+                                </>
+                            }
+                            <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                            >
+                                bill
+                            </Typography>
+                            <input onChange={onChangeBill} />
+                            <Typography
+                                variant="body2"
+                                sx={{ color: 'text.secondary' }}
+                            >
+                                Year bill starts
+                            </Typography>
+                            <input onChange={onChangeYear} />
                             <Fab color="primary" aria-label="add" onClick={addExpenditure}>
                                 <Add />
                             </Fab>
