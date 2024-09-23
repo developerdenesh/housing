@@ -50,22 +50,23 @@ const Main = () => {
 
     const addExpenditure = () => setExpenditure([...expenditure, {
         name: name,
-        bill: parseFloat(bill),
+        bill: (type) ? parseFloat(bill) : parseFloat(bill)/12,
         timeframe, timeframe,
         type: type,
         year: year,
     }])
 
-
     const computeExpenditure = () => {
         setExpenditure([{
             name: "Bank loan for condo",
             bill: monthly,
-            timeframe: inputValues.years
+            timeframe: inputValues.years,
+            year: 2024,
         }, {
             name: "Shortfall loan",
             bill: (inputValues.price - inputValues.loan - cash - cpf) / (shortFallPayback * 12),
-            timeframe: shortFallPayback
+            timeframe: shortFallPayback,
+            year: 2024,
         }])
     }
 
@@ -106,7 +107,7 @@ const Main = () => {
         <>
             <div className={styles.page}>
                 <main className={styles.main} style={{ width: "50vw" }}>
-                    Please type in all information
+                    <u>Please type in all information</u>
                     <MassiveForm
                         calculateInitialValue={calculateInitialValue}
                         initialValue={initialValue}
@@ -187,7 +188,7 @@ const Main = () => {
                                 variant="body2"
                                 sx={{ color: 'text.secondary' }}
                             >
-                                bill
+                                {age === 10 ? "Bill for the year" : "Monthly Bill"}
                             </Typography>
                             <input onChange={onChangeBill} />
                             <Typography
