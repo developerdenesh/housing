@@ -16,6 +16,7 @@ import { useEffect, useState, Fragment } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
+import { ContactsOutlined } from '@mui/icons-material';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -43,11 +44,7 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
     const [expanded, setExpanded] = useState(true);
-    const [rowData, setRowData] = useState([
-        { Name: "Tesla", Bill: "Model Y", Timeframe: 64950, electric: true },
-        { Name: "Ford", Bill: "F-Series", Timeframe: 33850, electric: false },
-        { Name: "Toyota", Bill: "Corolla", Timeframe: 29600, electric: false },
-    ]);
+    const [rowData, setRowData] = useState([]);
     const colData = [
         {
             field: "Name",
@@ -68,29 +65,30 @@ export default function RecipeReviewCard(props) {
     useEffect(() => {
         const data = []
         expenditure.map((element) => {
-            if (element.type === "single" && parseInt(element.year) === year) {
+
+            if (element.type === "single") {
+                // If the year fits the current year then add it in
+                if (parseInt(element.year) === year) {
+                    data.push({
+                        Name: element.name,
+                        Timeframe: 0,
+                        Bill: element.bill
+                    })
+                 }
+            } else {
                 data.push({
                     Name: element.name,
-                    Timeframe: 1,
+                    Timeframe: element.timeframe,
                     Bill: element.bill
                 })
-                return element;
             }
-
-            data.push({
-                Name: element.name,
-                Timeframe: element.timeframe,
-                Bill: element.bill
-            })
             return element
         })
 
         setRowData(data)
     }, [expenditure])
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    const handleExpandClick = () => setExpanded(!expanded);
 
     return (
         <Card sx={{ maxWidth: "100vw" }}>
